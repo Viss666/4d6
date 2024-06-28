@@ -18,12 +18,12 @@
         </div>
       </div>
 
-      <label for="Classes">Choose a class:</label>
+      <!-- <label for="Classes">Choose a class:</label>
       <select name="Classes" v-model="classInput">
         <option v-for="item in classes" v-bind:value="item">{{ item }}</option>
       </select>
       <button @click="getClass()">Get Class Info</button>
-      <br />
+      <br /> -->
       <!-- {{ displayClass }} -->
 
       <br />
@@ -31,14 +31,14 @@
       <div class="create_char">
         <div class="player_name_wrapper">
           <p>What is your character's name?</p>
-          <input v-model="newName" />
+          <input v-model="makeChar.name" />
         </div>
         <div class="player_class_wrapper">
           <p>What is your character's class?</p>
           <select
             name="Classes"
-            v-model="newClass"
-            @change="getClass(newClass)"
+            v-model="makeChar.class.name"
+            @change="getClass(makeChar.class.name)"
           >
             <option v-for="item in classes" v-bind:value="item">
               {{ item }}
@@ -49,50 +49,48 @@
 
       <div class="display_new_character">
         <div class="display_new_character_name">
-          <p v-bind:value="newName">Name: {{ newName }}</p>
+          <p v-bind:value="makeChar.name">Name: {{ makeChar.name }}</p>
         </div>
         <div class="display_new_character_class">
-          <p v-bind:value="newClass">Class: {{ newClass }}</p>
-          <p>Hit Die: {{ displayClass.hit_die }}</p>
+          <p v-bind:value="makeChar.class.name">
+            Class: {{ makeChar.class.name }}
+          </p>
+          <p>Hit Die: {{ makeChar.class.hit_die }}</p>
           <p>Proficiencies:</p>
           <div
             class="new_proficiencies"
-            v-for="item in displayClass.proficiencies"
+            v-for="item in makeChar.class.proficiencies"
           >
-            <p
-              v-if="item.name != 'Saving Throw: STR' && item.name != 'Saving Throw: DEX' && item.name != 'Saving Throw: CON' && item.name != 'Saving Throw: WIS' && item.name != 'Saving Throw: INT' && item.name != 'Saving Throw: CHA'"
-            >
-              {{item.name}}
-            </p>
+            <p v-if="isGoodProf(item)">{{item.name}}</p>
           </div>
           <p>Proficicient Saving Throws:</p>
           <div
             class="new_saving_throws"
-            v-for="item in displayClass.saving_throws"
+            v-for="item in makeChar.class.saving_throws"
           >
             <p>{{item.name}}</p>
           </div>
           Proficiency Skill Choices:
           <br />
-          <p v-if="displayClass == []">
-            {{ displayClass.proficiency_choices.desc }}
-          </p>
-          <div
+          <!-- <p v-if="displayClass == []">
+            {{ displayClass.proficiency_choices[0].desc }}
+          </p> -->
+          <!-- <div
             class="prof_choices"
-            v-for="item in displayClass.proficiency_choices.from.options"
+            v-for="item in makeChar.class.proficiency_choices.from.options"
           >
-            <p>{{item.name}}</p>
-          </div>
+            <p>{{item.item.name}}</p>
+          </div> -->
           Starting Equipment:
           <div
             class="starting_equipment"
-            v-for="item in displayClass.starting_equipment"
+            v-for="item in makeChar.class.starting_equipment"
           >
             {{ item.equipment.name }}
           </div>
           <div
             class="starting_equipment_options"
-            v-for="item in displayClass.starting_equipment_options"
+            v-for="item in makeChar.class.starting_equipment_options"
           >
             {{ item.desc }}
           </div>

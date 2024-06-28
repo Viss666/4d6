@@ -18,9 +18,10 @@ Vue.createApp({
         "Warlock",
         "Wizard",
       ],
-      makeChar: [],
-      newName: "",
-      newClass: "",
+      makeChar: {
+        name: "",
+        class: [],
+      },
     };
   },
   methods: {
@@ -54,7 +55,16 @@ Vue.createApp({
       );
       let data = await response.json();
       console.log(data);
-      this.displayClass = data;
+      //console.log(data.proficiency_choices[0].from.options);
+      //this.newClassProfChoices = data.proficiency_choices[0];
+      this.makeChar.class = data;
+      console.log(this.makeChar);
+      console.log(this.makeChar.class.proficiency_choices);
+      for (item in this.makeChar.class.proficiency_choices) {
+        if (item == "from") {
+          console.log(item);
+        }
+      }
 
       // fetch("https://www.dnd5eapi.co/api/classes/fighter", requestOptions).then(
       //   (response) => {
@@ -69,6 +79,16 @@ Vue.createApp({
       //     .then((response) => response.text())
       //     .then((result) => console.log(result))
       //     .catch((error) => console.error(error));
+    },
+    isGoodProf: function (item) {
+      let good =
+        item.name != "Saving Throw: STR" &&
+        item.name != "Saving Throw: DEX" &&
+        item.name != "Saving Throw: CON" &&
+        item.name != "Saving Throw: WIS" &&
+        item.name != "Saving Throw: INT" &&
+        item.name != "Saving Throw: CHA";
+      return good;
     },
   },
   created: function () {

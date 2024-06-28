@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  "mongodb+srv://viss_666:El380579!@cluster0.ooxemxf.mongodb.net/Players?retryWrites=true&w=majority"
+  "mongodb+srv://viss_666:4x12ptnCBwiWvqoB@cluster0.ooxemxf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 );
 
 const playerSchema = new mongoose.Schema({
